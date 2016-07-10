@@ -175,8 +175,10 @@ class GLM(object):
             qu = deepcopy(z)
             slope = np.exp(self.eta)
             intercept = (1 - self.eta) * slope
-            qu[z > self.eta] = z[z > self.eta] * slope + intercept
-            qu[z <= self.eta] = np.exp(z[z <= self.eta])
+            idxs = np.where(z > self.eta)[0]
+            idxs2 = np.where(z <= self.eta)[0]
+            qu[idxs] = z[idxs] * slope + intercept
+            qu[idxs2] = np.exp(z[idxs2])
         elif self.distr == 'normal':
             qu = z
         elif self.distr == 'binomial':
