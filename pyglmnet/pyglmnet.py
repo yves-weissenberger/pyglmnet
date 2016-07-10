@@ -177,10 +177,8 @@ class GLM(object):
             intercept = (1 - self.eta) * slope
             lin_idxs = np.where(z > self.eta)[0]
             exp_idxs = np.where(z <= self.eta)[0]
-            #qu[lin_idxs] = z[lin_idxs] * slope + intercept
-            #qu[exp_idxs] = np.exp(z[exp_idxs])
-            qu[z > self.eta] = z[z > self.eta] * slope + intercept
-            qu[z <= self.eta] = np.exp(z[z <= self.eta])
+            qu[lin_idxs] = z[lin_idxs] * slope + intercept
+            qu[exp_idxs] = np.exp(z[exp_idxs])
         elif self.distr == 'normal':
             qu = z
         elif self.distr == 'binomial':
